@@ -1,6 +1,6 @@
 import 'isomorphic-fetch'
 
-const baseUrl = 'https://www.themealdb.com/api/json/v1/1'
+const baseUrl = 'https://www.themealdb.com/api/json/v2/1'
 
 export default {
   getLatest,
@@ -16,12 +16,12 @@ async function getLatest() {
 }
 
 async function getRecipe(recipeId) {
+  console.log('fetch')
   const request = await fetch(`${baseUrl}/lookup.php?i=${recipeId}`)
   const data = await request.json()
   if( ! data.meals ) return null
   const recipe = normalizeMeal(data.meals.shift())
-
-  return recipe
+  return recipe;
 }
 
 function normalizeMeal(meal) {
@@ -47,6 +47,8 @@ function normalizeMeal(meal) {
       })
     }
   }
+
+  console.log('normalize')
 
   return newMeal
 }
