@@ -9,6 +9,16 @@ self.__precacheManifest = [].concat(self.__precacheManifest || [])
 workbox.precaching.suppressWarnings()
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {})
 
+//Para configurar el service worker que inicie a cachear en runtime sin necesidad de recargar la página de nuevo
+self.addEventListener('install', () => {
+    self.skipWaiting(); //tells service worker to skip installing and activate it
+    /*your code for pre-caching*/
+});
+self.addEventListener('activate', () => {
+    clients.claim();
+});
+
+
 // App Shell
 workbox.routing.registerNavigationRoute('/index.html')
 
